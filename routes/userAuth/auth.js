@@ -4,7 +4,7 @@ const userModel = require("../../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
-const Auth = require("../Middleware/verify");
+const Auth = require("../Middleware/Verify");
 // const validateSignup= require("./validator")
 
 //JOI VALIDATION OF USER INPUTS PREREQUISITES

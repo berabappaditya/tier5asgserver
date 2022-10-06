@@ -132,10 +132,20 @@ router.get("/userOrders", Auth, async (req, res) => {
   }
 });
 
-router.post("/dashboardData", Auth, async (req, res) => {
+router.patch("/dashboardUpdate", async (req, res) => {
   try {
-    const results = await userModel.find().exec();
-    res.send(results);
+    const filter = {
+      $or: [{ email: req.body.uniqueId }, { userName: req.body.uniqueId }],
+    };
+    const user = await userModel.findOne(filter);
+    if (!user) return res.status(400).send("Incorrect Email or username");
+    const dashValue = user.dashboard;
+    dashValue[req.body.label] = req.body.value;
+    const newTile = { dashboard: dashValue };
+    let doc = await userModel.findOneAndUpdate(filter, newTile, {
+      new: true,
+    });
+    res.status(200).send(doc);
   } catch (error) {
     res.status(500).send(error);
   }

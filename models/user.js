@@ -34,13 +34,13 @@ const userSchema = new schema({
   ],
   dashboard: {
     usagechart: {
-      type: boolean,
+      type: Boolean,
     },
     usagePie: {
-      type: boolean,
+      type: Boolean,
     },
     topUsage: {
-      type: boolean,
+      type: Boolean,
     },
   },
 });

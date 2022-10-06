@@ -1,3 +1,4 @@
+const { boolean } = require("joi");
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 const userSchema = new schema({
@@ -31,5 +32,16 @@ const userSchema = new schema({
       },
     },
   ],
+  dashboard: {
+    usagechart: {
+      type: boolean,
+    },
+    usagePie: {
+      type: boolean,
+    },
+    topUsage: {
+      type: boolean,
+    },
+  },
 });
 module.exports = mongoose.model("user", userSchema);

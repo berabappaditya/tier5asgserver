@@ -60,6 +60,11 @@ router.post("/signup", async (req, res) => {
       userName: userName,
       email: email,
       password: hashedPassword,
+      dashboard: {
+        usagechart: true,
+        usagePie: true,
+        topUsage: true,
+      },
     });
     user.tokens.push({ token });
     const nwuser = await user.save();
@@ -119,6 +124,15 @@ router.post("/login", async (req, res) => {
 
 //JWT token authentication api
 router.get("/userOrders", Auth, async (req, res) => {
+  try {
+    const results = await userModel.find().exec();
+    res.send(results);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.post("/dashboardData", Auth, async (req, res) => {
   try {
     const results = await userModel.find().exec();
     res.send(results);
